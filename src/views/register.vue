@@ -148,7 +148,7 @@ const handleRegister = async () => {
     })
     .catch((err) => {
       toast.update(id, {
-        render: err.message || "registration failed",
+        render: err?.response?.data || "registration failed",
         type: "error",
         isLoading: false,
       });

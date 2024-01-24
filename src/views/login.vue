@@ -114,8 +114,8 @@ const handleLogin = async () => {
       router.push("/");
     })
     .catch((err) => {
-      toast.update(id, {
-        render: "login failed",
+      return toast.update(id, {
+        render: err?.response?.data ?? "login failed",
         type: "error",
         isLoading: false,
       });
