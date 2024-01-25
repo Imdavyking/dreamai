@@ -62,7 +62,7 @@
               <div class="tw-text-lg tw-ml-3 sm:tw-flex tw-gap-4">
                 <div>
                   <h2 class="tw-font-medium">
-                    {{ account.name }}
+                    {{ account.name }} ({{ account.address }})
                   </h2>
                   <p class="tw-text-gray-500 tw-text-sm">{{ account.type }}</p>
                 </div>
