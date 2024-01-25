@@ -122,6 +122,9 @@
         v-if="accounts.length > 0"
       >
         <option value="" disabled selected>Select {{ field.name }}</option>
+        {{
+          accounts
+        }}
         <option
           v-for="option in accounts"
           :key="option.name"
