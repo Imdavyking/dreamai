@@ -78,7 +78,7 @@ const onConfirm = ({ privateKey, keyName }: { privateKey: string, keyName: strin
       {
         name: "privateKey",
         value: privateKey,
-        type: "address",
+        type: "string",
       },
     ],
   }

@@ -1,5 +1,7 @@
 <template>
   <div class="">
+    <!-- v-if="showNotice" -->
+    <!-- v-if="authStore.getAccounts.length === 0" -->
     <div v-if="showNotice" class="tw-block tw-p-3">
       <SeedPhraseNotice
         v-model="noticeModel"
@@ -9,7 +11,7 @@
         @showNotice="(show: boolean) => showNotice = show"
       />
     </div>
-
+    <!-- v-if="authStore.getAccounts.length === 0" -->
     <div
       class="tw-bg-gradient-to-r tw-from-orange-500/10 tw-to-transparent tw-p-5 tw-space-y-4"
     >
@@ -35,7 +37,7 @@
             @click="handleSelectAccountType(item.name)"
             class="tw-p-2 tw-py-1 hover:tw-bg-primary/10 tw-rounded-md tw-cursor-pointer"
           >
-            {{ item.name }}
+            {{ item.name }} cool
           </li>
         </ul>
       </v-menu>
@@ -46,6 +48,7 @@
         <h2 class="tw-font-medium tw-text-lg tw-mb-2">
           All your accounts would be listed below
         </h2>
+
         <div
           v-for="(account, i) in authStore.getAccounts"
           :key="i"
@@ -53,10 +56,14 @@
         >
           <div class="tw-flex tw-items-center tw-justify-between">
             <div class="tw-flex tw-flex-wrap">
-              <v-icon class="!tw-text-4xl !tw-text-orange-500">mdi-text-account</v-icon>
+              <v-icon class="!tw-text-4xl !tw-text-orange-500"
+                >mdi-text-account</v-icon
+              >
               <div class="tw-text-lg tw-ml-3 sm:tw-flex tw-gap-4">
                 <div>
-                  <h2 class="tw-font-medium">{{ account.name }}</h2>
+                  <h2 class="tw-font-medium">
+                    {{ account.name }}
+                  </h2>
                   <p class="tw-text-gray-500 tw-text-sm">{{ account.type }}</p>
                 </div>
                 <!-- <p>gismozfexie@yahoo.com</p> -->
@@ -98,7 +105,10 @@
             <h2 class="tw-text-xl tw-font-bold">
               Connect your {{ selectedAccountType }} account
             </h2>
-            <form @submit.prevent="createAccount" class="tw-mt-4 tw-text-base tw-flex tw-flex-col tw-gap-3">
+            <form
+              @submit.prevent="createAccount"
+              class="tw-mt-4 tw-text-base tw-flex tw-flex-col tw-gap-3"
+            >
               <label class="tw-relative tw-block">
                 <span class="tw-absolute tw-text-base tw-pl-3 tw-pt-1">
                   Give Your Account a Name
@@ -165,7 +175,9 @@ const showNotice = ref(true);
 const noticeModel = ref<boolean>();
 const selectedAccountType = ref();
 const accountTypes = ref<AccountType[]>([]);
-const cryptoAccountType = computed(()=>accountTypes.value.find((item) => item.name === "Crypto"));
+const cryptoAccountType = computed(() =>
+  accountTypes.value.find((item) => item.name === "Crypto")
+);
 const selectedAccount = computed(() => {
   return accountTypes.value.find(
     (item) => item.name === selectedAccountType.value
@@ -173,14 +185,16 @@ const selectedAccount = computed(() => {
 });
 
 onMounted(() => {
-  authStore.fetchAccountTypes()
+  authStore
+    .fetchAccountTypes()
     .then((res) => {
-      accountTypes.value = res
+      console.log(res);
+      accountTypes.value = res;
     })
     .catch((err) => {
       toast.error("failed to fetch account types");
     });
-})
+});
 
 const hasAccounts = computed(() => authStore.getAccounts.length > 0);
 const handleDeleteAccount = (account: Account) => {
@@ -207,16 +221,18 @@ const createAccount = async () => {
     name: accountForm.value._name,
     account_type_id: selectedAccount.value?._id!,
     account_type: selectedAccount.value?.name!,
-    parameters: selectedAccount.value?.parameters.map((item: any) => {
-      return {
-        name: item.name,
-        value: accountForm.value[item.name],
-        type: item.type,
-      };
-    }) || [],
+    parameters:
+      selectedAccount.value?.parameters.map((item: any) => {
+        return {
+          name: item.name,
+          value: accountForm.value[item.name],
+          type: item.type,
+        };
+      }) || [],
   };
 
-  authStore.createAccount(data)
+  authStore
+    .createAccount(data)
     .then(() => {
       toast.update(id, {
         render: "account created",
