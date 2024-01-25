@@ -1,26 +1,28 @@
 <template>
   <div class="tw-block">
     <div
-      class="tw-bg-black-1 tw-text-white tw-flex sm:tw-items-center
-      tw-p-3 tw-rounded-lg tw-gap-2">
+      class="tw-bg-black-1 tw-text-white tw-flex sm:tw-items-center tw-p-3 tw-rounded-lg tw-gap-2"
+    >
       <div
-        class="tw-flex-grow tw-flex tw-justify-between sm:tw-items-center
-        tw-flex-col sm:tw-flex-row tw-items-start tw-gap-4">
+        class="tw-flex-grow tw-flex tw-justify-between sm:tw-items-center tw-flex-col sm:tw-flex-row tw-items-start tw-gap-4"
+      >
         <p class="tw-text-sm">
-          Hi, <em class="tw-not-italic tw-font-semibold">{{pseudNname}}</em> a lot of what
-          you'll be doing here requires a private key. Lets help you get one.
+          Hi, <em class="tw-not-italic tw-font-semibold">{{ pseudNname }}</em> a
+          lot of what you'll be doing here requires a private key. Lets help you
+          get one.
         </p>
         <button
           @click="seedPhraseDialog = true"
-          class="tw-ring-2 tw-ring-white hover:tw-ring-4 tw-bg-primary
-          tw-text-sm tw-p-1.5 tw-px-3 tw-rounded-md tw-transition-all tw-duration-300">
+          class="tw-ring-2 tw-ring-white hover:tw-ring-4 tw-bg-primary tw-text-sm tw-p-1.5 tw-px-3 tw-rounded-md tw-transition-all tw-duration-300"
+        >
           get me a private key
         </button>
       </div>
       <v-icon
         v-if="isDismissable"
         @click="handleNoticeDismiss"
-        class="tw-cursor-pointer">
+        class="tw-cursor-pointer"
+      >
         mdi-close
       </v-icon>
     </div>
@@ -30,7 +32,8 @@
       fullscreen
       :scrim="false"
       transition="dialog-bottom-transition"
-      @update:modelValue="(value: boolean) => {seedPhraseDialog = value; emits('update:modelValue', value)}">
+      @update:modelValue="(value: boolean) => {seedPhraseDialog = value; emits('update:modelValue', value)}"
+    >
       <v-card class="!tw-bg-primary">
         <SeedPhraseGen
           class="tw-mx-auto tw-text-white tw-py-10 px-6 sm:px-10"
@@ -61,16 +64,22 @@ const emits = defineEmits<{
   (e: "update:modelValue", value: boolean): void;
 }>();
 
-const pseudNname = computed(()=>authStore.getPseudoName);
+const pseudNname = computed(() => authStore.getPseudoName);
 const seedPhraseDialog = ref(false);
-const modelRef = computed(()=>props.modelValue);
+const modelRef = computed(() => props.modelValue);
 watch(modelRef, (value) => {
   seedPhraseDialog.value = value;
   emits("update:modelValue", value);
 });
 const router = useRouter();
-const onConfirm = ({ privateKey, keyName }: { privateKey: string, keyName: string }) => {
-  const payload:AccountPayload = {
+const onConfirm = ({
+  privateKey,
+  keyName,
+}: {
+  privateKey: string;
+  keyName: string;
+}) => {
+  const payload: AccountPayload = {
     name: keyName,
     account_type_id: props.typeDetails?._id!,
     account_type: props.typeDetails?.name!,
@@ -81,19 +90,20 @@ const onConfirm = ({ privateKey, keyName }: { privateKey: string, keyName: strin
         type: "string",
       },
     ],
-  }
+  };
 
   const id = toast.loading("creating crypto account", {
     position: toast.POSITION.TOP_RIGHT,
   });
-  authStore.createAccount(payload)
+  authStore
+    .createAccount(payload)
     .then(() => {
       toast.update(id, {
         render: "successfully created",
         type: "success",
         isLoading: false,
       });
-      authStore.setHasPrivateKey(true)
+      authStore.setHasPrivateKey(true);
       seedPhraseDialog.value = false;
       emits("update:modelValue", false);
       // take them were they can see the account they just created
@@ -101,13 +111,17 @@ const onConfirm = ({ privateKey, keyName }: { privateKey: string, keyName: strin
     })
     .catch((err) => {
       toast.update(id, {
-        render: "account creation failed",
+        render: err?.response?.data?.message ?? "account creation failed",
         type: "error",
         isLoading: false,
       });
       console.log(err);
     })
-    .finally(() => setTimeout(() => {toast.remove(id)}, 1000));
+    .finally(() =>
+      setTimeout(() => {
+        toast.remove(id);
+      }, 1000)
+    );
 };
 const onBack = () => {
   seedPhraseDialog.value = false;

@@ -188,7 +188,6 @@ onMounted(() => {
   authStore
     .fetchAccountTypes()
     .then((res) => {
-      console.log(res);
       accountTypes.value = res;
     })
     .catch((err) => {
