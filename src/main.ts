@@ -37,4 +37,6 @@ app.use(Vue3Toasity, {
 } as ToastContainerOptions)
 app.mount('#app')
 
+console.log("axios")
+
 axios.defaults.baseURL = import.meta.env.VITE_API_URL
