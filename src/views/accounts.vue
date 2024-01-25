@@ -37,7 +37,7 @@
             @click="handleSelectAccountType(item.name)"
             class="tw-p-2 tw-py-1 hover:tw-bg-primary/10 tw-rounded-md tw-cursor-pointer"
           >
-            {{ item.name }} cool
+            {{ item.name }}
           </li>
         </ul>
       </v-menu>
