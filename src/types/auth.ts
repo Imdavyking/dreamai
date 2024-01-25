@@ -7,7 +7,7 @@ export type Account = {
   updated_at: string;
   __v: number;
   type: string;
-}
+};
 
 export type User = {
   id: string;
@@ -15,21 +15,21 @@ export type User = {
   image_url: string;
   accounts: Account[];
   hasSetPrivateKey: boolean;
-}
+};
 
 export type AccountType = {
   _id: string;
   title: string;
   name: string;
   parameters: {
-    _id: string
-    name: string
-    value: string
-    type: string
-    hint: string
-    dataType: string
+    _id: string;
+    name: string;
+    value: string;
+    type: string;
+    hint: string;
+    dataType: string;
   }[];
-}
+};
 
 export type AccountPayload = {
   name: string;
@@ -40,4 +40,13 @@ export type AccountPayload = {
     value: string;
     type: string;
   }>;
+};
+
+export type OutputType = {
+  _id: string;
+  flow_name: string;
+  created_at: string;
+  user_id: string;
+  completed: boolean;
+  outputs: [string];
 };
