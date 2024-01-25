@@ -2,24 +2,24 @@
   <div class="">
     <div class="tw-space-y-4">
       <div
-        class="tw-bg-gradient-to-r tw-from-orange-500/10 tw-to-transparent
-        tw-p-5 tw-space-y-4">
-        <h1 class="tw-text-3xl">View <strong>History</strong> of your workflow Runs</h1>
+        class="tw-bg-gradient-to-r tw-from-orange-500/10 tw-to-transparent tw-p-5 tw-space-y-4"
+      >
+        <h1 class="tw-text-3xl">
+          View <strong>History</strong> of your workflow Runs
+        </h1>
       </div>
 
       <section class="tw-py-1 tw-p-5">
         <div class="tw-w-full tw-xl:w-8/12 tw-mb-12 tw-xl:mb-0 tw-mx-auto">
           <div
-            class="tw-relative tw-flex tw-flex-col tw-min-w-0 tw-break-words
-            tw-w-full tw-mb-6 tw-rounded">
+            class="tw-relative tw-flex tw-flex-col tw-min-w-0 tw-break-words tw-w-full tw-mb-6 tw-rounded"
+          >
             <div class="tw-rounded-t tw-mb-0 tw-py-3 tw-border-0">
               <div class="tw-flex tw-flex-wrap tw-items-center">
                 <div
                   class="tw-relative tw-w-full tw-max-w-full tw-flex-grow tw-flex-1"
                 >
-                  <h3
-                    class="tw-font-bold tw-text-base tw-text-blueGray-700"
-                  >
+                  <h3 class="tw-font-bold tw-text-base tw-text-blueGray-700">
                     Workflow Runs
                   </h3>
                 </div>
@@ -39,7 +39,8 @@
             <div class="tw-block tw-w-full tw-overflow-x-auto">
               <table
                 v-if="!fetchingRuns && runs.length > 0"
-                class="tw-items-center tw-bg-transparent tw-w-full tw-border-collapse">
+                class="tw-items-center tw-bg-transparent tw-w-full tw-border-collapse"
+              >
                 <thead>
                   <tr>
                     <th
@@ -97,21 +98,27 @@
                   </tr>
                 </tbody>
               </table>
-              
+
               <div
                 v-else-if="fetchingRuns"
-                class="tw-border-4 tw-border-dashed tw-rounded-xl tw-h-60
-                tw-flex tw-flex-col tw-items-center tw-justify-center">
-                <v-icon class="!tw-text-2xl tw-text-gray-400 tw-animate-spin">mdi-loading</v-icon>
-                <p class="tw-text-gray-600 tw-font-medium">Fetching workflow history...</p>
+                class="tw-border-4 tw-border-dashed tw-rounded-xl tw-h-60 tw-flex tw-flex-col tw-items-center tw-justify-center"
+              >
+                <v-icon class="!tw-text-2xl tw-text-gray-400 tw-animate-spin"
+                  >mdi-loading</v-icon
+                >
+                <p class="tw-text-gray-600 tw-font-medium">
+                  Fetching workflow history...
+                </p>
               </div>
 
               <div
                 v-if="!fetchingRuns && (runs || []).length === 0"
-                class="tw-border-4 tw-border-dashed tw-rounded-xl tw-h-60
-                tw-flex tw-flex-col tw-items-center tw-justify-center">
+                class="tw-border-4 tw-border-dashed tw-rounded-xl tw-h-60 tw-flex tw-flex-col tw-items-center tw-justify-center"
+              >
                 <v-icon class="!tw-text-7xl tw-text-gray-400">mdi-bat</v-icon>
-                <p class="tw-text-gray-600 tw-font-medium">No workflows executed yet</p>
+                <p class="tw-text-gray-600 tw-font-medium">
+                  No workflows executed yet
+                </p>
               </div>
             </div>
           </div>
@@ -132,8 +139,10 @@ const workflowStore = useWorkflowStore();
 const fetchingRuns = ref(true);
 onMounted(() => {
   fetchingRuns.value = true;
-  workflowStore.fetchWorkflowHistory()
+  workflowStore
+    .fetchWorkflowHistory()
     .then((res) => {
+      console.log(res);
       runs.value = res;
     })
     .catch((err) => {
