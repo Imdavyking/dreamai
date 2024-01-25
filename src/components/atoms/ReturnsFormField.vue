@@ -23,7 +23,7 @@
                 :class="elementClass"
                 class="tw-w-full"
                 :required="!!field?.optional ? false : true"
-            />
+              />
               <details class="tw-text-sm">
                 <summary>Select Variable from previous steps</summary>
                 <vue-json-pretty
@@ -46,7 +46,7 @@
                 :class="elementClass"
                 class="tw-w-full"
                 :required="!!field?.optional ? false : true"
-            />
+              />
               <details class="tw-text-sm">
                 <summary>Select Variable from previous steps</summary>
                 <vue-json-pretty
@@ -183,7 +183,7 @@ import type { TriggerParameter, FunctionParameter } from "@/types/workflow";
 import { ref, watch, onMounted, reactive } from "vue";
 import { useWorkflowStore } from "@/stores/workflow";
 import axios from "axios";
-import router from "@/router";
+import router, { BASE_URL } from "@/router";
 import { useAuthStore } from "@/stores/auth";
 const workflowStore = useWorkflowStore();
 // console.log(JSON.stringify(workflowStore, null, 2));
@@ -228,7 +228,7 @@ onMounted(() => {
   if (props.field.formElement === "account") {
     // fetch accounts using axios
     axios
-      .get(`/v1/accounts?typeId=${props.field.formAccountTypeId}`, {
+      .get(`${BASE_URL}/v1/accounts?typeId=${props.field.formAccountTypeId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
