@@ -168,6 +168,7 @@ const props = defineProps<{
   workflow: any;
 }>();
 import { useAuthStore } from "../stores/auth";
+import { BASE_URL } from "../router/index";
 
 const foldTrigger = ref(true);
 const foldSteps = ref(true);
@@ -182,7 +183,7 @@ async function fetchRuns(): Promise<OutputType[]> {
   return new Promise(async (resolve, reject) => {
     try {
       const { data } = await axios.get(
-        "/v1/flows/runs",
+        `${BASE_URL}/v1/flows/runs`,
         authstore.getAuthHeader
       );
 

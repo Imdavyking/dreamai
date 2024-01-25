@@ -3,6 +3,7 @@ import { defineStore } from "pinia";
 import { useCookies } from "@vueuse/integrations/useCookies";
 import { useWorkflowStore } from "./workflow";
 import axios from "axios";
+import { BASE_URL } from "../router/index";
 
 type AuthHeader = {
   headers: {
@@ -45,7 +46,7 @@ export const useAuthStore = defineStore("auth", {
     }) {
       return new Promise(async (resolve, reject) => {
         try {
-          await axios.post("/v1/auth/register", payload);
+          await axios.post(`${BASE_URL}/v1/auth/register`, payload);
           resolve(true);
         } catch (error) {
           reject(error);
@@ -56,7 +57,10 @@ export const useAuthStore = defineStore("auth", {
       return new Promise(async (resolve, reject) => {
         try {
           console.log("data on");
-          const { data } = (await axios.post("/v1/auth/login", payload)) as {
+          const { data } = (await axios.post(
+            `${BASE_URL}/v1/auth/login`,
+            payload
+          )) as {
             data: {
               data: {
                 access_token: string;
@@ -93,7 +97,7 @@ export const useAuthStore = defineStore("auth", {
       return new Promise(async (resolve, reject) => {
         try {
           const { data } = await axios.get(
-            "/v1/accounts/types",
+            `${BASE_URL}/v1/accounts/types`,
             this.getAuthHeader
           );
           resolve(data.data);
@@ -107,7 +111,7 @@ export const useAuthStore = defineStore("auth", {
         try {
           JSON.stringify(payload);
           const { data } = await axios.post(
-            "/v1/accounts",
+            `${BASE_URL}/v1/accounts`,
             payload,
             this.getAuthHeader
           );
@@ -128,7 +132,10 @@ export const useAuthStore = defineStore("auth", {
     deleteAccount({ accountId }: { accountId: string }) {
       return new Promise(async (resolve, reject) => {
         try {
-          await axios.delete(`/v1/accounts/${accountId}`, this.getAuthHeader);
+          await axios.delete(
+            `${BASE_URL}/v1/accounts/${accountId}`,
+            this.getAuthHeader
+          );
           const accounts = this.user.accounts.filter(
             (account) => account._id !== accountId
           );

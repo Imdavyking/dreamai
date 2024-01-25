@@ -7,6 +7,7 @@ import type {
   WorkflowTriggerData,
   WorkflowHistory,
 } from "@/types/workflow";
+import { BASE_URL } from "../router/index";
 import { defineStore } from "pinia";
 import { useCookies } from "@vueuse/integrations/useCookies";
 import { useFunctionsStore } from "./functions";
@@ -356,7 +357,7 @@ export const useWorkflowStore = defineStore("workflow", {
             })),
           };
           const res = await axios.post(
-            "/v1/flows",
+            `${BASE_URL}/v1/flows`,
             {
               name: generateSlug(5),
               trigger: triggerPayload,
@@ -378,7 +379,7 @@ export const useWorkflowStore = defineStore("workflow", {
       return new Promise(async (resolve, reject) => {
         try {
           const { data } = await axios.get(
-            "/v1/flows",
+            `${BASE_URL}/v1/flows`,
             authstore.getAuthHeader
           );
           resolve(data.data as any[]);
@@ -392,7 +393,7 @@ export const useWorkflowStore = defineStore("workflow", {
       return new Promise(async (resolve, reject) => {
         try {
           const { data } = await axios.get(
-            "/v1/flows/runs",
+            `${BASE_URL}v1/flows/runs`,
             authstore.getAuthHeader
           );
           resolve(data.data as any[]);
