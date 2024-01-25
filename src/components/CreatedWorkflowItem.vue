@@ -138,10 +138,11 @@
               >
             </h4>
             <div
-              v-for="result in outP.outputs"
+              v-for="(result, index) in outP.outputs"
+              :key="index"
               class="tw-text-start tw-truncate tw-space-y-1"
             >
-              {{ result }}
+              {{ index }}. {{ result }}
             </div>
             <h4>
               Ouputs:
