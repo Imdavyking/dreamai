@@ -123,25 +123,27 @@
             v-for="outP in outPut"
             class="tw-text-start tw-truncate tw-space-y-1"
           >
-            <h4>
-              Flow name:
-              <span
-                class="tw-bg-primary tw-p-1 tw-px-2 tw-text-white tw-rounded-xl"
-                >{{ outP.flow_name }}</span
-              >
-            </h4>
-            <h4>
-              Completed:
-              <span
-                class="tw-bg-primary tw-p-1 tw-px-2 tw-text-white tw-rounded-xl"
-                >{{ outP.completed }}</span
-              >
-            </h4>
+            <div v-if="workflow.name == outP.flow_name">
+              <h4>
+                Flow name:
+                <span
+                  class="tw-bg-primary tw-p-1 tw-px-2 tw-text-white tw-rounded-xl"
+                  >{{ outP.flow_name }}</span
+                >
+              </h4>
+              <h4>
+                Completed:
+                <span
+                  class="tw-bg-primary tw-p-1 tw-px-2 tw-text-white tw-rounded-xl"
+                  >{{ outP.completed }}</span
+                >
+              </h4>
 
-            <h4>
-              Ouputs:
-              <pre class="tw-text-xs">{{ { results: outP.outputs } }}</pre>
-            </h4>
+              <h4>
+                Ouputs:
+                <pre class="tw-text-xs">{{ { results: outP.outputs } }}</pre>
+              </h4>
+            </div>
           </div>
         </template>
         <template v-else>
