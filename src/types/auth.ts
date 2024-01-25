@@ -5,6 +5,7 @@ export type Account = {
   user_id: string;
   created_at: string;
   updated_at: string;
+  address: string;
   __v: number;
   type: string;
 };
