@@ -138,11 +138,9 @@
               >
             </h4>
 
-            <pre class="tw-text-xs">{{ { results: outP.outputs } }}</pre>
-
             <h4>
               Ouputs:
-              <pre class="tw-text-xs">{{}}</pre>
+              <pre class="tw-text-xs">{{ { results: outP.outputs } }}</pre>
             </h4>
           </div>
         </template>
