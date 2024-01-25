@@ -137,13 +137,9 @@
                 >{{ outP.completed }}</span
               >
             </h4>
-            <div
-              v-for="(result, index) in outP.outputs"
-              :key="index"
-              class="tw-text-start tw-truncate tw-space-y-1"
-            >
-              {{ index }}. {{ result }}
-            </div>
+
+            <pre class="tw-text-xs">{{ { results: outP.outputs } }}</pre>
+
             <h4>
               Ouputs:
               <pre class="tw-text-xs">{{}}</pre>
