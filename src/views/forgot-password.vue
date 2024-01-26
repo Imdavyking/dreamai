@@ -13,7 +13,7 @@
         <div class="tw-bg-white tw-p-3 sm:tw-p-6 tw-border">
           <div>
             <h2 class="tw-text-3xl tw-font-bold">Send Code</h2>
-            <form @submit.prevent="handleLogin" class="tw-mt-4 tw-text-xl">
+            <form @submit.prevent="resetPassword" class="tw-mt-4 tw-text-xl">
               <label class="tw-relative tw-block">
                 <span class="tw-absolute tw-text-base tw-pl-3 tw-pt-1"
                   >Enter your email</span
@@ -32,13 +32,14 @@
               <p
                 class="tw-mt-2 tw-text-sm"
                 style="color: green; cursor: pointer; font-size: 18px"
+                @click="sendResetCode"
               >
                 send verification code
               </p>
 
               <label class="tw-relative tw-mt-4 tw-flex tw-items-center">
                 <span class="tw-absolute tw-top-0 tw-text-base tw-pl-3 tw-pt-1"
-                  >Enter your password</span
+                  >Enter your new password</span
                 >
                 <input
                   v-model="form.password"
@@ -63,8 +64,8 @@
                   >Enter code sent</span
                 >
                 <input
-                  v-model="form.password"
-                  :type="showPassword ? 'text' : 'password'"
+                  v-model="form.reset_code"
+                  :type="'text'"
                   placeholder="000000"
                   :required="true"
                   class="tw-w-full tw-bg-gray-100 tw-p-3 tw-pt-7 tw-rounded-md tw-outline-black"
@@ -85,6 +86,11 @@
                 >
                 </v-progress-circular>
               </button>
+              <p class="tw-mt-2 tw-text-sm">
+                <router-link to="/login" class="tw-text-primary tw-font-bold"
+                  >Login?</router-link
+                >
+              </p>
             </form>
           </div>
         </div>
@@ -102,22 +108,51 @@ import { toast } from "vue3-toastify";
 const form = ref({
   email: "",
   password: "",
+  reset_code: "",
 });
+
 const showPassword = ref(false);
 
 const router = useRouter();
 const resettingIn = ref(false);
 const authStore = useAuthStore();
-const handleLogin = async () => {
+
+const sendResetCode = async () => {
   resettingIn.value = true;
-  const id = toast.loading("login you in...", {
+  const id = toast.loading("send verification code...", {
     position: toast.POSITION.TOP_RIGHT,
   });
   await authStore
-    .login(form.value)
+    .sendVerificationCode(form.value)
     .then(() => {
       toast.update(id, {
-        render: "login successful",
+        render: "verification code sent",
+        type: "success",
+        isLoading: false,
+      });
+    })
+    .catch((err) => {
+      return toast.update(id, {
+        render: err?.response?.data ?? "verification code sending failed",
+        type: "error",
+        isLoading: false,
+      });
+    })
+    .finally(() => {
+      resettingIn.value = false;
+      setTimeout(() => toast.remove(id), 1000);
+    });
+};
+const resetPassword = async () => {
+  resettingIn.value = true;
+  const id = toast.loading("resetting password...", {
+    position: toast.POSITION.TOP_RIGHT,
+  });
+  await authStore
+    .resetPassword(form.value)
+    .then(() => {
+      toast.update(id, {
+        render: "password change successful",
         type: "success",
         isLoading: false,
       });
@@ -125,7 +160,7 @@ const handleLogin = async () => {
     })
     .catch((err) => {
       return toast.update(id, {
-        render: err?.response?.data ?? "login failed",
+        render: err?.response?.data ?? "password change failed",
         type: "error",
         isLoading: false,
       });

@@ -53,6 +53,32 @@ export const useAuthStore = defineStore("auth", {
         }
       });
     },
+    sendVerificationCode(payload: {
+      email: string;
+      password: string;
+      reset_code: string;
+    }) {
+      return new Promise(async (resolve, reject) => {
+        try {
+          await axios.post(`${BASE_URL}/v1/send-reset-code`, payload);
+          resolve(true);
+        } catch (error) {
+          console.log(error);
+          reject(error);
+        }
+      });
+    },
+    resetPassword(payload: { email: string }) {
+      return new Promise(async (resolve, reject) => {
+        try {
+          await axios.post(`${BASE_URL}/v1/reset-password`, payload);
+          resolve(true);
+        } catch (error) {
+          console.log(error);
+          reject(error);
+        }
+      });
+    },
     login(payload: { email: string; password: string }) {
       return new Promise(async (resolve, reject) => {
         try {
