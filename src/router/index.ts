@@ -5,6 +5,7 @@ import Home from "@/views/index.vue";
 import { LayoutTypes } from "@/types/layouts";
 import Login from "@/views/login.vue";
 import Register from "@/views/register.vue";
+import ForgotPassword from "@/views/forgot-password.vue";
 import { useAuthStore } from "@/stores/auth";
 import singleRunVue from "@/views/single-run.vue";
 
@@ -15,6 +16,14 @@ const router = createRouter({
       path: "/login",
       name: "login",
       component: Login,
+      meta: {
+        layout: LayoutTypes.Empty,
+      },
+    },
+    {
+      path: "/forgot-password",
+      name: "forgot-password",
+      component: ForgotPassword,
       meta: {
         layout: LayoutTypes.Empty,
       },

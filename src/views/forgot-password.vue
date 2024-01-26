@@ -6,18 +6,13 @@
       <div class="tw-space-y-10">
         <div class="tw-text-center">
           <h1 class="tw-text-5xl sm:tw-text-6xl tw-font-bold">
-            <span class="tw-relative tw-z-10">Automate your work using</span>
-            <span
-              class="before:tw-block before:tw-absolute before:-tw-inset-1 before:-tw-skew-y-3 before:tw-bg-white tw-border-2 tw-border-black tw-relative tw-inline-block"
-            >
-              <span class="tw-relative tw-text-primary">Dream AI.</span>
-            </span>
+            <span class="tw-relative tw-z-10">Forgot your password?</span>
           </h1>
         </div>
 
         <div class="tw-bg-white tw-p-3 sm:tw-p-6 tw-border">
           <div>
-            <h2 class="tw-text-3xl tw-font-bold">Welcome back!</h2>
+            <h2 class="tw-text-3xl tw-font-bold">Send Code</h2>
             <form @submit.prevent="handleLogin" class="tw-mt-4 tw-text-xl">
               <label class="tw-relative tw-block">
                 <span class="tw-absolute tw-text-base tw-pl-3 tw-pt-1"
@@ -55,6 +50,19 @@
                 </v-icon>
               </label>
 
+              <label class="tw-relative tw-mt-4 tw-flex tw-items-center">
+                <span class="tw-absolute tw-top-0 tw-text-base tw-pl-3 tw-pt-1"
+                  >Enter code sent</span
+                >
+                <input
+                  v-model="form.password"
+                  :type="showPassword ? 'text' : 'password'"
+                  placeholder="000000"
+                  :required="true"
+                  class="tw-w-full tw-bg-gray-100 tw-p-3 tw-pt-7 tw-rounded-md tw-outline-black"
+                />
+              </label>
+
               <button
                 class="tw-w-full tw-bg-primary tw-text-white tw-py-4 tw-mt-10 tw-rounded-md tw-font-medium hover:tw-ring-4 tw-ring-primary/30 transition-all tw-duration-300"
                 :disabled="logingIn"
@@ -73,12 +81,6 @@
                 Don't have an account?
                 <router-link to="/register" class="tw-text-primary tw-font-bold"
                   >Register</router-link
-                >
-              </p>
-              <p class="tw-mt-2 tw-text-sm">
-    
-                <router-link to="/forgot-password" class="tw-text-primary tw-font-bold"
-                  >Forgot Password?</router-link
                 >
               </p>
             </form>
