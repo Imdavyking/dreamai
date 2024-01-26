@@ -18,6 +18,7 @@
                 <span class="tw-absolute tw-text-base tw-pl-3 tw-pt-1"
                   >Enter your email</span
                 >
+                
                 <input
                   v-model="form.email"
                   type="email"
