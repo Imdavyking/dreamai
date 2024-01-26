@@ -87,6 +87,7 @@
 </template>
 
 <script setup lang="ts">
+import { BASE_URL } from "@/router";
 import { useAuthStore } from "@/stores/auth";
 import axios from "axios";
 import { onMounted, ref } from "vue";
@@ -120,7 +121,7 @@ onMounted(() => {
   const token = authStore.token;
   const id = route.params.id;
   axios
-    .get(`/v1/flows/runs/${id}`, {
+    .get(`${BASE_URL}/v1/flows/runs/${id}`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
