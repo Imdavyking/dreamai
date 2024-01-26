@@ -83,14 +83,7 @@
                     <td
                       class="tw-border-t-0 tw-px-6 tw-align-center tw-border-l-0 tw-border-r-0 tw-text-xs tw-whitespace-nowrap tw-py-4"
                     >
-                      {{
-                        run.steps.every((x) => {
-                          console.log(x);
-                          return x.success;
-                        })
-                          ? "Success"
-                          : "Failed"
-                      }}
+                      {{ run.success_step ? "Success" : "Failed" }}
                     </td>
                     <td
                       class="tw-border-t-0 tw-px-6 tw-align-middle tw-border-l-0 tw-border-r-0 tw-text-xs tw-whitespace-nowrap tw-py-4"

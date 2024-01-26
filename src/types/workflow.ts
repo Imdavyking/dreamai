@@ -84,4 +84,5 @@ export type WorkflowHistory = {
   steps: { success: boolean }[];
   flow_name: string;
   created_at: string;
-}
+  success_step: [boolean];
+};

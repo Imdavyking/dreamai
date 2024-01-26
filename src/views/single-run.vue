@@ -104,12 +104,13 @@ const run = ref<{
     logs: string;
     message: string;
     name: string;
-    success: boolean
+    success: boolean;
     parameters: {
       name: string;
       value: any;
     }[];
   }[];
+  success_step: boolean;
   flow_name: string;
   created_at: string;
 
