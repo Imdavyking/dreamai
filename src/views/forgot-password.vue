@@ -18,7 +18,7 @@
                 <span class="tw-absolute tw-text-base tw-pl-3 tw-pt-1"
                   >Enter your email</span
                 >
-                
+
                 <input
                   v-model="form.email"
                   type="email"
@@ -28,6 +28,13 @@
                   class="tw-w-full tw-bg-gray-100 tw-p-3 tw-pt-7 tw-rounded-md tw-outline-black"
                 />
               </label>
+
+              <p
+                class="tw-mt-2 tw-text-sm"
+                style="color: green; cursor: pointer; font-size: 18px"
+              >
+                send verification code
+              </p>
 
               <label class="tw-relative tw-mt-4 tw-flex tw-items-center">
                 <span class="tw-absolute tw-top-0 tw-text-base tw-pl-3 tw-pt-1"
@@ -66,9 +73,9 @@
 
               <button
                 class="tw-w-full tw-bg-primary tw-text-white tw-py-4 tw-mt-10 tw-rounded-md tw-font-medium hover:tw-ring-4 tw-ring-primary/30 transition-all tw-duration-300"
-                :disabled="logingIn"
+                :disabled="resettingIn"
               >
-                <template v-if="!logingIn"> Login </template>
+                <template v-if="!resettingIn"> Reset </template>
                 <v-progress-circular
                   v-else
                   indeterminate
@@ -78,12 +85,6 @@
                 >
                 </v-progress-circular>
               </button>
-              <p class="tw-mt-2 tw-text-sm">
-                Don't have an account?
-                <router-link to="/register" class="tw-text-primary tw-font-bold"
-                  >Register</router-link
-                >
-              </p>
             </form>
           </div>
         </div>
@@ -105,10 +106,10 @@ const form = ref({
 const showPassword = ref(false);
 
 const router = useRouter();
-const logingIn = ref(false);
+const resettingIn = ref(false);
 const authStore = useAuthStore();
 const handleLogin = async () => {
-  logingIn.value = true;
+  resettingIn.value = true;
   const id = toast.loading("login you in...", {
     position: toast.POSITION.TOP_RIGHT,
   });
@@ -130,7 +131,7 @@ const handleLogin = async () => {
       });
     })
     .finally(() => {
-      logingIn.value = false;
+      resettingIn.value = false;
       setTimeout(() => toast.remove(id), 1000);
     });
 };
