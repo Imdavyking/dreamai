@@ -100,59 +100,6 @@
         </template>
       </div>
     </div>
-    <div>
-      <hr class="tw-border-orange-500/30" />
-      <div class="tw-flex tw-justify-between tw-p-2 tw-bg-orange-200/5">
-        <h3 class="tw-text-lg">Outputs</h3>
-
-        <v-icon
-          @click="foldOutputs = !foldOutputs"
-          class="tw-cursor-pointer tw-text-black"
-        >
-          {{
-            !foldOutputs
-              ? "mdi-unfold-less-horizontal"
-              : "mdi-unfold-more-horizontal"
-          }}
-        </v-icon>
-      </div>
-      <hr class="tw-border-orange-500/30" />
-      <div class="tw-p-3 tw-text-center">
-        <template v-if="!foldOutputs">
-          <div
-            v-for="outP in outPut"
-            class="tw-text-start tw-truncate tw-space-y-1"
-          >
-            <div v-if="workflow.name == outP.flow_name">
-              <h4>
-                Flow name:
-                <span
-                  class="tw-bg-primary tw-p-1 tw-px-2 tw-text-white tw-rounded-xl"
-                  >{{ outP.flow_name }}</span
-                >
-              </h4>
-              <h4>
-                Completed:
-                <span
-                  class="tw-bg-primary tw-p-1 tw-px-2 tw-text-white tw-rounded-xl"
-                  >{{ outP.completed }}</span
-                >
-              </h4>
-
-              <h4>
-                Ouputs:
-                <pre class="tw-text-xs">{{ { results: outP.outputs } }}</pre>
-              </h4>
-            </div>
-          </div>
-        </template>
-        <template v-else>
-          <v-icon class="!tw-text-5xl tw-text-gray-300"
-            >mdi-dots-horizontal</v-icon
-          >
-        </template>
-      </div>
-    </div>
   </div>
 </template>
 
