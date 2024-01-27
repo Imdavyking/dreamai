@@ -118,6 +118,7 @@ const resettingIn = ref(false);
 const authStore = useAuthStore();
 
 const sendResetCode = async () => {
+  if (form.value.email.trim() == "") return;
   resettingIn.value = true;
   const id = toast.loading("send verification code...", {
     position: toast.POSITION.TOP_RIGHT,
