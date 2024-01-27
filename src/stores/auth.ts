@@ -4,7 +4,8 @@ import { useCookies } from "@vueuse/integrations/useCookies";
 import { useWorkflowStore } from "./workflow";
 import axios from "axios";
 import { BASE_URL } from "../router/index";
-
+import { useRouter } from "vue-router";
+const router = useRouter();
 type AuthHeader = {
   headers: {
     Authorization: string;
@@ -117,7 +118,7 @@ export const useAuthStore = defineStore("auth", {
       cookies.remove("token");
       const workflowStore = useWorkflowStore();
       workflowStore.clearWorkflowCreation();
-      setTimeout(() => window.location.reload());
+      setTimeout(() => window.location.replace("/"));
     },
     async fetchAccountTypes(): Promise<AccountType[]> {
       return new Promise(async (resolve, reject) => {
